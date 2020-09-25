@@ -12,19 +12,21 @@ import SearchBar from "../components/search";
 import { ContactsContext } from "../shared/context";
 
 const Home = ({ navigation }) => {
-  const { contacts, search } = useContext(ContactsContext);
+  const { contacts } = useContext(ContactsContext);
 
   const [searchText, setSearchText] = useState("");
   const [filteredContacts, setFilterContacts] = useState(contacts);
+  const [onSearch, setOnSearch] = useState(false);
 
-  useEffect((makeSearch) => {
-    const makeSearch = () => {
-      const filteredContact = contacts.filter((contact) => {
+  const makeSearch = () => {
+    setFilterContacts(
+      contacts.filter((contact) => {
         return contact.name.toLowerCase().includes(searchText.toLowerCase());
-      });
-      setFilterContacts(filteredContact);
-    };
-  }, contacts);
+      })
+    );
+  };
+
+  let leo = onSearch ? console.log(onSearch) : console.log("false");
 
   return (
     <View style={styles.container}>

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import contactsData from "./contacts";
 
 export const ContactsContext = React.createContext();
@@ -9,10 +9,10 @@ contactReducer = (state, action) => {
       return state.filter((contact) => contact.key !== action.payload);
 
     case "add_contact":
-      return [...state, action.param];
+      return [...state, action.payload];
 
-    case "make_search":
-      return action.filteredContact;
+    // case "make_search":
+    //   return action.filteredContact;
 
     default:
       return state;
@@ -27,19 +27,17 @@ const ContactsContextProvider = ({ children }) => {
     callback();
   };
 
-  const addContact = (param, callback) => {
-    dispatch({ type: "add_contact", param: param });
+  const addContact = (newContact, callback) => {
+    dispatch({ type: "add_contact", payload: newContact });
     callback();
   };
 
-  const search = (filteredContact) => {
-    dispatch({ type: "make_search", filteredContact: filteredContact });
-  };
+  // const search = (filteredContact) => {
+  //   dispatch({ type: "make_search", filteredContact: filteredContact });
+  // };
 
   return (
-    <ContactsContext.Provider
-      value={{ contacts, deleteContact, addContact, search }}
-    >
+    <ContactsContext.Provider value={{ contacts, deleteContact, addContact }}>
       {children}
     </ContactsContext.Provider>
   );
