@@ -32,7 +32,7 @@ const AddContacts = ({ navigation }) => {
         <Item stackedLabel one onPress={(cel) => setAddCel(cel)}>
           <Label>Celular</Label>
           <Input
-            keyboardType="numeric"
+            keyboardType="phone"
             onChangeText={(val1) => setAddCel(val1)}
           />
         </Item>

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import Navigator from "./routes/homeStack";
+import ContactsContextProvider from "./shared/context";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    "open-sans": require("native-base/Fonts/Roboto.ttf"),
-    "open-sans-bold": require("native-base/Fonts/Roboto_medium.ttf"),
+    roboto: require("native-base/Fonts/Roboto.ttf"),
+    roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
   });
 };
 
@@ -23,5 +23,9 @@ export default function App() {
     );
   }
 
-  return <Navigator />;
+  return (
+    <ContactsContextProvider>
+      <Navigator />
+    </ContactsContextProvider>
+  );
 }

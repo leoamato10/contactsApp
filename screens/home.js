@@ -6,40 +6,40 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-
+import { Item, Input, Icon } from "native-base";
 import ContactList from "../components/contactList";
-import SearchBar from "../components/search";
 import { ContactsContext } from "../shared/context";
 
 const Home = ({ navigation }) => {
   const { contacts } = useContext(ContactsContext);
-
-  const [searchText, setSearchText] = useState("");
+  const [inputVal, setInputVal] = useState("");
   const [filteredContacts, setFilterContacts] = useState(contacts);
-  const [onSearch, setOnSearch] = useState(false);
 
   const makeSearch = () => {
     setFilterContacts(
       contacts.filter((contact) => {
-        return contact.name.toLowerCase().includes(searchText.toLowerCase());
+        return contact.name.toLowerCase().includes(inputVal.toLowerCase());
       })
     );
   };
 
-  let leo = onSearch ? console.log(onSearch) : console.log("false");
+  useEffect(() => {
+    setFilterContacts(contacts);
+  }, [contacts]);
 
   return (
-    <View style={styles.container}>
-      <View>
-        <SearchBar
-          searchText={searchText}
-          newSearchText={(newText) => setSearchText(newText)}
-          onTermSubmit={() => {
-            makeSearch();
-          }}
+    <View style={styles.content}>
+      <Item style={styles.search}>
+        <Icon name="ios-search" />
+        <Input
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Search"
+          onChangeText={(val) => setInputVal(val)}
+          onKeyPress={() => makeSearch()}
         />
-      </View>
-      <View style={{ marginBottom: 65 }}>
+      </Item>
+      <View style={styles.list}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={filteredContacts}
@@ -62,15 +62,18 @@ const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-    justifyContent: "flex-start",
+  content: {
+    padding: 10,
+    marginBottom: 65,
+  },
+
+  search: {
+    marginBottom: 10,
   },
   fabView: {
     position: "absolute",
     right: 27,
-    bottom: 27,
+    bottom: 30,
   },
   fab: {
     backgroundColor: "mediumturquoise",

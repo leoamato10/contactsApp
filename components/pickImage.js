@@ -4,7 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
 const PickImg = ({ imageSelected }) => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
 
   const getPermissionAsync = async () => {
     if (Platform.OS !== "web") {
