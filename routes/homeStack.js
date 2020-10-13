@@ -6,29 +6,50 @@ import Header from "../components/header";
 import Home from "../screens/home";
 import ContactCard from "../components/contactCard";
 import AddContact from "../screens/addContact";
+// import Test from "../screens/test";
 
-const HomeNav = createStackNavigator({
+const screens = {
   Home: {
     screen: Home,
     navigationOptions: () => {
       return {
-        headerTitle: () => <Header title="Contactos" />,
-        headerTintColor: "white",
-        headerStyle: {
-          backgroundColor: "lightgray",
-        },
+        headerTitle: () => <Header title="CONTACTOS" />,
       };
     },
   },
-
   ContactCard: {
     screen: ContactCard,
-    navigationOptions: {
-      headerShown: false,
+    navigationOptions: () => {
+      return {
+        headerTitle: () => <Header title="Detalle de Contacto" />,
+      };
     },
   },
   AddContact: {
     screen: AddContact,
+    navigationOptions: () => {
+      return {
+        headerTitle: () => <Header title="Agregar Contacto" />,
+      };
+    },
+  },
+  //   Test: {
+  //     screen: Test,
+  //     navigationOptions: () => {
+  //       return {
+  //         headerTitle: () => <Header title="Test" />,
+  //       };
+  //     },
+  //   },
+};
+
+const HomeNav = createStackNavigator(screens, {
+  defaultNavigationOptions: {
+    headerTitleAlign: "left | center",
+    headerStyle: {
+      backgroundColor: "#76bdde",
+      height: 90,
+    },
   },
 });
 

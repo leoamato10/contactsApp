@@ -27,7 +27,6 @@ const PickImg = ({ imageSelected }) => {
         setImage(result.uri);
       }
       imageSelected(result.uri);
-      // this.props.imageSelected(result.uri); //estoy es en el class component
     } catch (E) {
       console.log(E);
     }

@@ -5,10 +5,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  TextInput,
+  Button,
 } from "react-native";
-import { Item, Input, Icon } from "native-base";
+import { Icon } from "native-base";
 import ContactList from "../components/contactList";
 import { ContactsContext } from "../shared/context";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Home = ({ navigation }) => {
   const { contacts } = useContext(ContactsContext);
@@ -29,18 +32,22 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.content}>
-      <Item style={styles.search}>
+      <View style={styles.search}>
         <Icon name="ios-search" />
-        <Input
+        <TextInput
+          style={styles.searchText}
           autoCapitalize="none"
           autoCorrect={false}
           placeholder="Search"
           onChangeText={(val) => setInputVal(val)}
           onKeyPress={() => makeSearch()}
         />
-      </Item>
-      <View style={styles.list}>
+      </View>
+      {/* <Button title="press me" onPress={() => navigation.navigate("Test")} /> */}
+
+      <View>
         <FlatList
+          contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
           data={filteredContacts}
           renderItem={({ item }) => (
@@ -48,6 +55,7 @@ const Home = ({ navigation }) => {
           )}
         />
       </View>
+
       <View style={styles.fabView}>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -63,22 +71,34 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   content: {
+    flex: 1,
     padding: 10,
     marginBottom: 65,
   },
 
   search: {
-    marginBottom: 10,
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#dadada",
+    alignItems: "center",
+    marginHorizontal: 10,
+    marginBottom: 7,
+  },
+  searchText: {
+    paddingHorizontal: 20,
+    fontSize: 20,
+    width: "95%",
+    paddingVertical: 10,
   },
   fabView: {
     position: "absolute",
-    right: 27,
-    bottom: 30,
+    right: 30,
+    bottom: -40,
   },
   fab: {
-    backgroundColor: "mediumturquoise",
-    height: 55,
-    width: 55,
+    backgroundColor: "#76bdde",
+    height: 60,
+    width: 60,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",

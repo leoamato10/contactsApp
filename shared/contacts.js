@@ -20,7 +20,7 @@ export default [
     key: "3",
   },
   {
-    name: "Saul Farah",
+    name: "Saul Schum",
     cel: "2615236425",
     image:
       "https://assets.laliga.com/squad/2020/t175/p89335/256x278/p89335_t175_2020_1_001_000.png",
