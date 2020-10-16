@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import { Alert } from "react-native";
 
-import contactsData from "./contacts other";
+import contactsData from "./contacts";
 
 export const ContactsContext = React.createContext();
 

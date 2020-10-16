@@ -49,6 +49,8 @@ const Home = ({ navigation }) => {
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
+          snapToAlignment="end"
+          snapToInterval={75}
           data={filteredContacts}
           renderItem={({ item }) => (
             <ContactList item={item} navigation={navigation} />
