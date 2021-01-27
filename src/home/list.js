@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useEffect } from "react";
 import * as Linking from "expo-linking";
 import { Body, Right, Text, ListItem, Thumbnail, Icon } from "native-base";
 import { TouchableOpacity, Modal, View, Image, Dimensions } from "react-native";
@@ -16,9 +16,13 @@ const imgExist = (item) => {
   }
 };
 
-const List = memo(({ item, navigation, deleteHandler }) => {
+const List = ({ item, navigation, deleteHandler }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  console.log("rendered");
+
+  useEffect(() => {
+    console.log("List rendered");
+  });
+
   return (
     <ListItem thumbnail>
       <Modal
@@ -122,6 +126,6 @@ const List = memo(({ item, navigation, deleteHandler }) => {
       </Right>
     </ListItem>
   );
-});
+};
 
 export default List;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   View,
   Text,
@@ -13,9 +13,9 @@ import List from "./list";
 import * as Contacts from "expo-contacts";
 
 const Home = ({ navigation }) => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState([]); //contiene la primer carga de contactos
+  const [filteredContacts, setFilterContacts] = useState(); //se le pasa por primera vez el estado contacts
   const [inputVal, setInputVal] = useState("");
-  const [filteredContacts, setFilterContacts] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const [addCel, setAddCel] = useState(null);
@@ -30,30 +30,41 @@ const Home = ({ navigation }) => {
   };
 
   useEffect(() => {
-    navigation.addListener("focus", () => {
-      (async () => {
-        const { status } = await Contacts.requestPermissionsAsync();
-        if (status === "granted") {
-          const { data } = await Contacts.getContactsAsync({
-            fields: [
-              Contacts.Fields.Name,
-              Contacts.Fields.Image,
-              Contacts.Fields.PhoneNumbers,
-            ],
-          });
-          setContacts(data);
-        }
-      })();
-    });
+    console.log("app rendered");
+  });
 
-    // return () => [];
+  useEffect(() => {
+    // navigation.addListener("focus", () => {
+    (async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === "granted") {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [
+            Contacts.Fields.Name,
+            Contacts.Fields.Image,
+            Contacts.Fields.PhoneNumbers,
+          ],
+        });
+        setContacts(data);
+      }
+    })();
+
+    return () => "";
   }, []);
 
   useEffect(() => {
     setFilterContacts(contacts);
     setIsLoading(false);
-    return () => []; //cleanup fx
+    // return () => [];
   }, [contacts]);
+
+  // const makeSearch = useMemo(() => {
+  //   setFilterContacts(
+  //     contacts.filter((contact) => {
+  //       return contact.name.toLowerCase().includes(inputVal.toLowerCase());
+  //     })
+  //   );
+  // }, [filteredContacts, contacts]);
 
   const makeSearch = () => {
     setFilterContacts(
